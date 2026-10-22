@@ -2,42 +2,48 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Linux System Admin Exam - QTM Linux</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+<title>Ôn Tập - QTM Linux</title>
 <style>
 :root {
-  --bg: #f4f6f9;
+  --bg: #f1f5f9;
   --card: #ffffff;
-  --ink: #111827;
-  --muted: #6b7280;
-  --line: #e5e7eb;
-  --accent: #1e40af;
-  --accent-soft: #eff6ff;
+  --ink: #0f172a;
+  --muted: #475569;
+  --line: #cbd5e1;
+  --accent: #1d4ed8;
+  --accent-hover: #1e40af;
+  --accent-soft: #dbeafe;
   --green: #15803d;
-  --green-bg: #f0fdf4;
+  --green-bg: #dcfce7;
   --red: #b91c1c;
-  --red-bg: #fef2f2;
+  --red-bg: #fee2e2;
   --warn: #b45309;
-  --warn-bg: #fffbeb;
-  --mono-border: #d1d5db;
+  --warn-bg: #fef3c7;
+  --mono-border: #94a3b8;
+  --ticker-bg: #0f172a;
+  --ticker-color: #f8fafc;
 }
 
 /* Theme Trắng Đen / Tối giản (Monochrome) */
 body.monochrome {
-  --bg: #f9f9f9;
+  --bg: #ffffff;
   --card: #ffffff;
   --ink: #000000;
-  --muted: #555555;
+  --muted: #444444;
   --line: #000000;
   --accent: #000000;
+  --accent-hover: #262626;
   --accent-soft: #e5e5e5;
   --green: #000000;
   --green-bg: #f0f0f0;
   --red: #000000;
-  --red-bg: #e0e0e0;
+  --red-bg: #e5e5e5;
   --warn: #000000;
-  --warn-bg: #ebebeb;
+  --warn-bg: #ececec;
   --mono-border: #000000;
+  --ticker-bg: #000000;
+  --ticker-color: #ffffff;
 }
 
 * { box-sizing: border-box; }
@@ -46,192 +52,256 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  line-height: 1.6;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
 }
+
+/* BANNER CHẠY CHỮ (MARQUEE TICKER) */
+.ticker-wrap {
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--ticker-bg);
+  color: var(--ticker-color);
+  padding: 10px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  user-select: none;
+}
+.ticker-move {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 25s linear infinite;
+}
+.ticker-move:hover {
+  animation-play-state: paused;
+}
+.ticker-item {
+  display: inline-block;
+  padding: 0 35px;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+@keyframes marquee {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
 .app {
-  max-width: 950px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 24px 16px 80px;
+  padding: 18px 16px 80px;
 }
+
+/* TOOLBAR */
 .toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 .brand h1 {
-  font-size: 1.25rem;
+  font-size: 1.45rem;
   margin: 0;
-  font-weight: 800;
+  font-weight: 900;
+  letter-spacing: -0.5px;
   text-transform: uppercase;
 }
 .brand small {
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
+  font-weight: 500;
 }
 .tool-btns {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
+
 button, select {
   font: inherit;
-  border-radius: 6px;
-  padding: 8px 14px;
-  border: 1px solid var(--mono-border);
-  background: #fff;
+  font-size: 1rem;
+  border-radius: 8px;
+  padding: 10px 16px;
+  border: 1.5px solid var(--mono-border);
+  background: var(--card);
   color: var(--ink);
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
+  transition: all 0.15s ease;
 }
-button:hover { opacity: 0.85; }
-button:disabled { opacity: 0.4; cursor: not-allowed; }
-.btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
-body.monochrome .btn-primary { background: #000; color: #fff; border-color: #000; }
+button:hover { opacity: 0.9; }
+button:active { transform: scale(0.98); }
+button:disabled { opacity: 0.45; cursor: not-allowed; }
 
+.btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-tip {
+  background: #f59e0b;
+  color: #000;
+  border-color: #d97706;
+  font-weight: 800;
+}
+body.monochrome .btn-primary { background: #000; color: #fff; border-color: #000; }
+body.monochrome .btn-tip { background: #ffffff; color: #000; border-color: #000; border-width: 2px; }
+
+/* PANEL CHÍNH */
 .panel {
   background: var(--card);
-  border: 1px solid var(--mono-border);
-  border-radius: 8px;
-  padding: 24px;
+  border: 1.5px solid var(--mono-border);
+  border-radius: 12px;
+  padding: clamp(16px, 4vw, 32px);
   margin-bottom: 24px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
 }
 
-/* Setup Screen */
+/* SETUP SCREEN */
 .setup-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  margin-bottom: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
 }
 .setup-group label {
   display: block;
-  font-size: 0.85rem;
-  font-weight: bold;
-  margin-bottom: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 8px;
   color: var(--muted);
 }
 .setup-group select {
   width: 100%;
 }
 
-/* Paper Header */
+/* PAPER HEADER */
 .paperhead {
   text-align: center;
-  border-bottom: 2px solid var(--ink);
-  padding-bottom: 16px;
-  margin-bottom: 20px;
+  border-bottom: 2.5px solid var(--ink);
+  padding-bottom: 18px;
+  margin-bottom: 22px;
 }
-.paperhead h2 { margin: 6px 0; font-size: 1.6rem; text-transform: uppercase; }
+.paperhead h2 { margin: 8px 0; font-size: 1.75rem; text-transform: uppercase; font-weight: 900; }
 .student-bar {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 12px;
-  font-size: 0.95rem;
-  margin-bottom: 16px;
-  font-weight: 500;
+  gap: 14px;
+  font-size: 1.05rem;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 
-/* Timer Sticky Bar */
+/* STICKY BAR */
 .sticky-bar {
   position: sticky;
   top: 10px;
   z-index: 50;
   background: var(--card);
   border: 2px solid var(--ink);
-  padding: 10px 16px;
-  border-radius: 8px;
+  padding: 12px 18px;
+  border-radius: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  margin-bottom: 24px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
 }
 .timer-box {
-  font-size: 1.15rem;
-  font-weight: 800;
+  font-size: 1.35rem;
+  font-weight: 900;
   font-variant-numeric: tabular-nums;
 }
 .timer-danger { color: var(--red); animation: blink 1s infinite; }
-@keyframes blink { 50% { opacity: 0.5; } }
+@keyframes blink { 50% { opacity: 0.4; } }
 
-/* Questions */
+/* QUESTIONS & INPUTS */
 .section-title {
   background: var(--accent-soft);
-  border-left: 4px solid var(--accent);
-  padding: 8px 12px;
-  font-weight: 800;
-  margin: 24px 0 16px;
+  border-left: 6px solid var(--accent);
+  padding: 10px 14px;
+  font-weight: 900;
+  margin: 32px 0 18px;
   text-transform: uppercase;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
+  border-radius: 0 6px 6px 0;
 }
 .q-card {
-  padding: 16px 0;
-  border-bottom: 1px dashed var(--line);
+  padding: 20px 0;
+  border-bottom: 1.5px dashed var(--line);
 }
 .q-title {
   display: flex;
-  gap: 10px;
-  font-weight: 600;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 1.12rem;
+  line-height: 1.5;
 }
 .q-num {
-  font-weight: 800;
-  min-width: 28px;
+  font-weight: 900;
+  min-width: 34px;
+  color: var(--accent);
 }
+body.monochrome .q-num { color: #000; }
+
 .q-input-wrap {
   display: flex;
-  gap: 8px;
-  margin-top: 10px;
-  padding-left: 38px;
+  gap: 10px;
+  margin-top: 14px;
+  padding-left: 46px;
+  align-items: center;
 }
 .q-input {
   flex: 1;
-  padding: 8px 12px;
-  border: 1px solid var(--mono-border);
-  border-radius: 4px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--mono-border);
+  border-radius: 6px;
   background: transparent;
-  font: inherit;
+  font-size: 1.05rem; /* Tránh zoom iOS Safari */
   color: inherit;
+  font-weight: 500;
 }
 .q-input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-soft);
 }
 .peek-btn {
-  padding: 6px 12px;
-  font-size: 0.8rem;
+  padding: 10px 14px;
+  font-size: 0.9rem;
   white-space: nowrap;
 }
-.answer-reveal {
-  margin: 8px 0 0 38px;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-}
-.answer-reveal.peeked { background: var(--warn-bg); color: var(--warn); border: 1px solid var(--warn); }
-.answer-reveal.good { background: var(--green-bg); color: var(--green); border: 1px solid var(--green); font-weight: bold; }
-.answer-reveal.bad { background: var(--red-bg); color: var(--red); border: 1px solid var(--red); }
 
-/* Result Summary Dashboard */
+.answer-reveal {
+  margin: 12px 0 0 46px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.answer-reveal.peeked { background: var(--warn-bg); color: var(--warn); border: 1.5px solid var(--warn); font-weight: 600; }
+.answer-reveal.good { background: var(--green-bg); color: var(--green); border: 1.5px solid var(--green); font-weight: 800; }
+.answer-reveal.bad { background: var(--red-bg); color: var(--red); border: 1.5px solid var(--red); font-weight: 600; }
+
+/* RESULT DASHBOARD */
 .score-dashboard {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 12px;
-  margin: 20px 0;
+  margin: 24px 0;
   text-align: center;
 }
 .stat-box {
-  padding: 14px 8px;
-  border: 1px solid var(--mono-border);
-  border-radius: 8px;
+  padding: 16px 8px;
+  border: 1.5px solid var(--mono-border);
+  border-radius: 10px;
   background: var(--card);
 }
-.stat-box .val { font-size: 1.8rem; font-weight: 900; }
-.stat-box .lbl { font-size: 0.8rem; color: var(--muted); font-weight: 600; text-transform: uppercase; }
+.stat-box .val { font-size: 2.2rem; font-weight: 900; line-height: 1.2; }
+.stat-box .lbl { font-size: 0.85rem; color: var(--muted); font-weight: 700; text-transform: uppercase; margin-top: 4px; }
+
 .filter-tabs {
   display: flex;
   gap: 8px;
@@ -243,64 +313,125 @@ body.monochrome .btn-primary { background: #000; color: #fff; border-color: #000
   color: var(--card);
 }
 
-/* Footer / Signature */
+/* POPUP MODAL MẸO THI */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 16px;
+}
+.modal-box {
+  background: var(--card);
+  padding: 32px 24px;
+  border-radius: 14px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  border: 2px solid var(--mono-border);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes popIn {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.modal-title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--red);
+  margin: 10px 0 20px;
+  text-transform: uppercase;
+}
+
+/* FOOTER */
 footer.app-footer {
   margin-top: 60px;
-  border-top: 1px solid var(--mono-border);
-  padding-top: 20px;
+  border-top: 1.5px solid var(--mono-border);
+  padding-top: 24px;
   text-align: center;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--muted);
 }
 footer.app-footer a {
   color: inherit;
-  font-weight: 700;
+  font-weight: 800;
   text-decoration: none;
 }
 
 .hidden { display: none !important; }
 
+/* RESPONSIVE CHO MOBILE */
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .brand h1 { font-size: 1.25rem; }
+  .tool-btns { width: 100%; }
+  .tool-btns button { flex: 1; text-align: center; padding: 10px 6px; font-size: 0.88rem; }
+  .q-title { font-size: 1.05rem; }
+  .q-input-wrap { padding-left: 0; flex-direction: column; align-items: stretch; }
+  .answer-reveal { margin-left: 0; }
+  .student-bar { flex-direction: column; gap: 8px; }
+}
+
 @media print {
   body { background: #fff !important; color: #000 !important; }
-  .toolbar, .setup-screen, .sticky-bar, .actions, .peek-btn, .filter-tabs, footer { display: none !important; }
+  .ticker-wrap, .toolbar, .setup-screen, .sticky-bar, .actions, .peek-btn, .filter-tabs, footer, .modal-overlay { display: none !important; }
   .panel { box-shadow: none; border: 0; padding: 0; }
-  .q-input { border: 0; border-bottom: 1px solid #000; border-radius: 0; }
+  .q-input { border: 0; border-bottom: 1.5px solid #000; border-radius: 0; }
   .answer-reveal { display: none !important; }
 }
 </style>
 </head>
 <body>
+
+<!-- BANNER CHỮ CHẠY VÔ TẬN -->
+<div class="ticker-wrap">
+  <div class="ticker-move">
+    <span class="ticker-item">🔥 HỌC TÀI THI VẬN</span>
+    <span class="ticker-item">💡 HÃY CHỌN TOÀN C NẾU BẠN NGOO</span>
+    <span class="ticker-item">📖 HỌC LÀ CON ĐƯỜNG DUY NHẤT ĐỂ THÀNH CONG</span>
+    <!-- Duplicate for infinite seamless scroll -->
+    <span class="ticker-item">🔥 HỌC TÀI THI VẬN</span>
+    <span class="ticker-item">💡 HÃY CHỌN TOÀN C NẾU BẠN NGOO</span>
+    <span class="ticker-item">📖 HỌC LÀ CON ĐƯỜNG DUY NHẤT ĐỂ THÀNH CONG</span>
+  </div>
+</div>
+
 <div class="app">
-  <!-- Top Navigation / Preferences -->
+  <!-- TOOLBAR -->
   <header class="toolbar">
     <div class="brand">
       <h1>Linux Quiz Lab</h1>
-      <small>Đề cương Quản trị mạng Linux · Debian Platform</small>
+      <small>Hệ thống ôn luyện Quản trị mạng Linux · Debian Platform</small>
     </div>
     <div class="tool-btns">
+      <button class="btn-tip" id="secretTipBtn" type="button">✨ Mẹo thi 10 điểm</button>
       <button id="themeToggle" type="button">Chuyển: Trắng / Đen</button>
       <button id="printBtn" type="button">In / Lưu PDF</button>
     </div>
   </header>
 
-  <!-- Step 1: Settings Screen -->
+  <!-- MÀN HÌNH 1: CẤU HÌNH ĐỀ -->
   <section class="panel setup-screen" id="setupSection">
-    <h3 style="margin-top: 0;">Cấu hình đề thi</h3>
+    <h3 style="margin-top: 0; font-size: 1.3rem;">Cấu hình phòng thi</h3>
     <div class="setup-grid">
       <div class="setup-group">
         <label for="examSelect">Chọn đề kiểm tra:</label>
         <select id="examSelect">
-          <option value="1">Đề 1 (20 Lý thuyết + 10 Lệnh)</option>
-          <option value="2">Đề 2 (20 Lý thuyết + 10 Lệnh)</option>
-          <option value="3">Đề 3 (20 Lý thuyết + 10 Lệnh)</option>
+          <option value="1">Đề 1 (20 Lý thuyết + 10 Viết Lệnh)</option>
+          <option value="2">Đề 2 (20 Lý thuyết + 10 Viết Lệnh)</option>
+          <option value="3">Đề 3 (20 Lý thuyết + 10 Viết Lệnh)</option>
         </select>
       </div>
       <div class="setup-group">
         <label for="timerSelect">Thời gian làm bài:</label>
         <select id="timerSelect">
           <option value="0">Không giới hạn</option>
-          <option value="300">5 Phút</option>
-          <option value="900">15 Phút</option>
+          <option value="300">5 Phút (Căng thẳng)</option>
+          <option value="900">15 Phút (Chuẩn bài)</option>
         </select>
       </div>
       <div class="setup-group">
@@ -311,46 +442,45 @@ footer.app-footer a {
         </select>
       </div>
     </div>
-    <p style="color:var(--muted); font-size: 0.85rem; margin-bottom: 18px;">
-      * Mỗi đề đều gồm đầy đủ các câu hỏi lý thuyết và câu lệnh, đảm bảo kiến thức bao quát và đáp án đầy đủ.
+    <p style="color:var(--muted); font-size: 0.95rem; margin-bottom: 20px;">
+      * Bộ đề bao gồm 90 câu chuẩn trích xuất từ đề cương ôn tập Debian/Linux: phân bổ trọn vẹn, không trùng lặp giữa các đề.
     </p>
-    <button class="btn-primary" id="startExamBtn" style="width: 100%; padding: 12px;">Bắt đầu làm bài</button>
+    <button class="btn-primary" id="startExamBtn" style="width: 100%; padding: 14px; font-size: 1.15rem;">BẮT ĐẦU LÀM BÀI</button>
   </section>
 
-  <!-- Step 2: Examination Screen -->
+  <!-- MÀN HÌNH 2: LÀM BÀI -->
   <section class="panel hidden" id="examSection">
     <div class="sticky-bar">
       <div>
-        <span id="examBadge" style="font-weight: 800; text-transform: uppercase;"></span>
-        <span style="color: var(--muted); font-size: 0.85rem; margin-left: 8px;" id="answerProgress">0/0</span>
+        <span id="examBadge" style="font-weight: 900; text-transform: uppercase;"></span>
+        <span style="color: var(--muted); font-size: 0.95rem; margin-left: 8px; font-weight: 600;" id="answerProgress">0/0</span>
       </div>
       <div class="timer-box" id="timerBox">00:00</div>
     </div>
 
     <div class="paperhead">
-      <div style="font-size: 0.85rem; letter-spacing: 1px;">KHOA CÔNG NGHỆ THÔNG TIN</div>
+      <div style="font-size: 0.95rem; letter-spacing: 1.5px; font-weight: 800;">KHOA CÔNG NGHỆ THÔNG TIN</div>
       <h2 id="paperExamTitle">BÀI KIỂM TRA QUẢN TRỊ MẠNG LINUX</h2>
-      <div id="paperSub">Môi trường thực hành: Debian GNU/Linux</div>
+      <div id="paperSub" style="font-weight: 600;">Hệ điều hành: Debian GNU/Linux</div>
     </div>
 
     <div class="student-bar">
       <span>Thí sinh: ............................................................</span>
-      <span>Mã số SV: ................................</span>
+      <span>MSSV: ................................</span>
       <span>Lớp: ................................</span>
     </div>
 
-    <!-- Questions Container -->
     <div id="questionContainer"></div>
 
-    <div class="actions" style="margin-top: 30px; display: flex; gap: 10px; justify-content: center;">
-      <button class="btn-primary" id="submitExamBtn" style="padding: 12px 24px;">Nộp Bài & Xem Kết Quả</button>
-      <button id="cancelExamBtn" style="padding: 12px 24px;">Hủy / Chọn Đề Khác</button>
+    <div class="actions" style="margin-top: 36px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+      <button class="btn-primary" id="submitExamBtn" style="padding: 14px 30px; font-size: 1.1rem;">Nộp Bài & Chấm Điểm</button>
+      <button id="cancelExamBtn" style="padding: 14px 24px;">Hủy Bài / Chọn Đề Khác</button>
     </div>
   </section>
 
-  <!-- Step 3: Result Screen -->
+  <!-- MÀN HÌNH 3: BÁO CÁO KẾT QUẢ -->
   <section class="panel hidden" id="resultSection">
-    <h2 style="text-align: center; margin-top: 0;">BÁO CÁO KẾT QUẢ BÀI THI</h2>
+    <h2 style="text-align: center; margin-top: 0; font-size: 1.8rem;">BÁO CÁO KẾT QUẢ BÀI THI</h2>
     <div class="score-dashboard">
       <div class="stat-box">
         <div class="val" id="resTotal">30</div>
@@ -374,36 +504,46 @@ footer.app-footer a {
       </div>
     </div>
 
-    <div style="text-align: center; margin-bottom: 20px;">
-      <h3 style="margin: 0; font-size: 1.5rem;" id="resFinalScore">0.0 / 10.0 Điểm</h3>
-      <p style="color: var(--muted); font-size: 0.9rem;" id="resNote"></p>
+    <div style="text-align: center; margin-bottom: 24px;">
+      <h3 style="margin: 0; font-size: 2rem; font-weight: 900;" id="resFinalScore">0.0 / 10.0 Điểm</h3>
+      <p style="color: var(--muted); font-size: 1rem; margin-top: 6px;" id="resNote"></p>
     </div>
 
-    <hr style="border: 0; border-top: 1px solid var(--mono-border);">
+    <hr style="border: 0; border-top: 1.5px solid var(--mono-border);">
 
-    <!-- Quick Review Navigation -->
-    <div style="margin: 20px 0;">
-      <span style="font-weight: 700; font-size: 0.9rem;">LỌC XEM NHANH:</span>
+    <!-- TABS XEM NHANH -->
+    <div style="margin: 24px 0 16px;">
+      <span style="font-weight: 800; font-size: 1rem;">LỌC XEM NHANH CÂU HỎI:</span>
       <div class="filter-tabs">
         <button class="filter-btn active" data-filter="all">Tất cả câu hỏi</button>
-        <button class="filter-btn" data-filter="wrong">Chỉ câu SAI</button>
-        <button class="filter-btn" data-filter="empty">Chỉ câu CHƯA LÀM</button>
-        <button class="filter-btn" data-filter="correct">Chỉ câu ĐÚNG</button>
+        <button class="filter-btn" data-filter="wrong">❌ Chỉ câu SAI</button>
+        <button class="filter-btn" data-filter="empty">⚠️ Chỉ câu CHƯA LÀM</button>
+        <button class="filter-btn" data-filter="correct">✅ Chỉ câu ĐÚNG</button>
       </div>
     </div>
 
     <div id="reviewContainer"></div>
 
-    <div class="actions" style="margin-top: 30px; display: flex; gap: 10px; justify-content: center;">
-      <button class="btn-primary" id="retakeBtn">Làm lại bài thi</button>
-      <button id="exportResultBtn">Tải kết quả (TXT)</button>
+    <div class="actions" style="margin-top: 36px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+      <button class="btn-primary" id="retakeBtn" style="padding: 12px 24px;">Làm Lại Đề Này / Chọn Đề Mới</button>
+      <button id="exportResultBtn" style="padding: 12px 24px;">Tải Kết Quả (TXT)</button>
     </div>
   </section>
 
-  <!-- English Footer / Owner Signature -->
+  <!-- CHỦ SỞ HỮU GHI BẰNG TIẾNG ANH -->
   <footer class="app-footer">
     Developed and maintained by <a href="https://github.com/mrfice5" target="_blank" rel="noopener">@mrfice5</a>. All rights reserved.
   </footer>
+</div>
+
+<!-- HỘP THOẠI POPUP: MẸO THI 10 ĐIỂM -->
+<div class="modal-overlay hidden" id="tipModal">
+  <div class="modal-box">
+    <div style="font-size: 2.6rem;">🤫</div>
+    <div class="modal-title">MẸO MÀY BÉ</div>
+    <p style="color: var(--muted); font-size: 1rem; margin-bottom: 24px;">Học bài chăm chỉ đi bạn ơi, không có đường tắt đâu!</p>
+    <button class="btn-primary" id="closeTipBtn" style="width: 100%; padding: 12px;">Đã hiểu & Quay lại học</button>
+  </div>
 </div>
 
 <script>
@@ -513,23 +653,23 @@ const DB_COMMANDS = [
   { id: "C30", q: "Chỉ root được đọc/ghi /etc/vsftpd.conf", a: ["chmod 600 /etc/vsftpd.conf"] }
 ];
 
-// Phân bổ đều và cố định 3 Đề để đảm bảo trọn vẹn 90 câu
+// Phân bổ đều và cố định 3 Đề
 const EXAM_SETS = {
   1: {
-    theory: DB_THEORY.slice(0, 20),      // T01 -> T20
-    commands: DB_COMMANDS.slice(0, 10)  // C01 -> C10
+    theory: DB_THEORY.slice(0, 20),
+    commands: DB_COMMANDS.slice(0, 10)
   },
   2: {
-    theory: DB_THEORY.slice(20, 40),     // T21 -> T40
-    commands: DB_COMMANDS.slice(10, 20) // C11 -> C20
+    theory: DB_THEORY.slice(20, 40),
+    commands: DB_COMMANDS.slice(10, 20)
   },
   3: {
-    theory: DB_THEORY.slice(40, 60),     // T41 -> T60
-    commands: DB_COMMANDS.slice(20, 30) // C21 -> C30
+    theory: DB_THEORY.slice(40, 60),
+    commands: DB_COMMANDS.slice(20, 30)
   }
 };
 
-// ==================== QUẢN LÝ TRẠNG THÁI APP ====================
+// ==================== APP CONTROLLER ====================
 let currentExamList = [];
 let userAnswers = {};
 let peekedSet = new Set();
@@ -540,7 +680,6 @@ let currentExamNumber = 1;
 
 const $ = id => document.getElementById(id);
 
-// Chuẩn hóa chuỗi so sánh
 function normalizeStr(str) {
   return String(str || '')
     .trim()
@@ -566,7 +705,6 @@ function shuffle(array) {
   return arr;
 }
 
-// Bắt đầu làm bài
 function startExam() {
   currentExamNumber = +$('examSelect').value;
   const isShuffle = $('shuffleOpt').value === 'yes';
@@ -586,13 +724,11 @@ function startExam() {
   peekedSet = new Set();
   isSubmitted = false;
 
-  // Render UI
   $('examBadge').textContent = `Đề số ${currentExamNumber}`;
   $('paperExamTitle').textContent = `ĐỀ KIỂM TRA QUẢN TRỊ MẠNG LINUX - ĐỀ 0${currentExamNumber}`;
   renderQuestions();
   updateProgress();
 
-  // Khởi động đồng hồ bấm giờ
   clearInterval(timerInterval);
   const timerBox = $('timerBox');
   timerBox.classList.remove('timer-danger');
@@ -616,7 +752,8 @@ function startExam() {
   }
 
   $('setupSection').classList.add('hidden');
-  $('resultSection').classList.add('hidden');$('examSection').classList.remove('hidden');
+  $('resultSection').classList.add('hidden');
+  $('examSection').classList.remove('hidden');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -649,7 +786,7 @@ function renderQuestions() {
         <span>${item.q}</span>
       </div>
       <div class="q-input-wrap">
-        <input type="text" class="q-input" id="inp-${index}" placeholder="Nhập đáp án...">
+        <input type="text" class="q-input" id="inp-${index}" placeholder="Nhập câu trả lời tại đây..." autocomplete="off" autocapitalize="none">
         <button type="button" class="peek-btn" id="peekBtn-${index}">Xem đáp án</button>
       </div>
       <div id="revealBox-${index}"></div>
@@ -673,7 +810,7 @@ function handlePeek(index) {
   const item = currentExamList[index];
   const box = $(`revealBox-${index}`);
   box.className = 'answer-reveal peeked';
-  box.textContent = `Đáp án: ${item.a.join(' / ')} (Câu này không tính điểm khi nộp)`;
+  box.textContent = `Đáp án gợi ý: ${item.a.join(' / ')} (Câu này không tính điểm khi nộp bài)`;
   $(`peekBtn-${index}`).disabled = true;
   $(`peekBtn-${index}`).textContent = 'Đã xem';
   updateProgress();
@@ -684,7 +821,6 @@ function updateProgress() {
   $('answerProgress').textContent = `Đã làm: ${answered}/${currentExamList.length} | Đã xem: ${peekedSet.size}`;
 }
 
-// Nộp bài & Hiển thị thống kê
 function submitExam() {
   if (isSubmitted) return;
   isSubmitted = true;
@@ -714,7 +850,6 @@ function submitExam() {
       }
     }
 
-    // Hiển thị trực tiếp trên đề
     const box = $(`revealBox-${index}`);
     if (!isPeeked) {
       box.className = 'answer-reveal ' + (isOk ? 'good' : 'bad');
@@ -722,11 +857,9 @@ function submitExam() {
     }
   });
 
-  // Tính điểm hệ 10
   const eligibleCount = total - peekCount;
   const scoreNum = eligibleCount > 0 ? ((correctCount / total) * 10).toFixed(1) : "0.0";
 
-  // Đổ dữ liệu Dashboard
   $('resTotal').textContent = total;
   $('resCorrect').textContent = correctCount;
   $('resWrong').textContent = wrongCount;
@@ -742,7 +875,6 @@ function submitExam() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Bộ lọc câu hỏi ở màn hình kết quả
 function renderReview(filterType) {
   const container = $('reviewContainer');
   container.innerHTML = '';
@@ -762,31 +894,30 @@ function renderReview(filterType) {
     if (!match) return;
 
     const itemDiv = document.createElement('div');
-    itemDiv.style.padding = '14px';
-    itemDiv.style.marginBottom = '10px';
-    itemDiv.style.borderRadius = '6px';
-    itemDiv.style.border = '1px solid var(--mono-border)';
+    itemDiv.style.padding = '16px';
+    itemDiv.style.marginBottom = '12px';
+    itemDiv.style.borderRadius = '8px';
+    itemDiv.style.border = '1.5px solid var(--mono-border)';
     itemDiv.style.background = isPeeked ? 'var(--warn-bg)' : isOk ? 'var(--green-bg)' : 'var(--red-bg)';
 
     let statusText = isPeeked ? 'ĐÃ XEM ĐÁP ÁN' : isOk ? 'ĐÚNG' : isEmpty ? 'CHƯA TRẢ LỜI' : 'SAI';
 
     itemDiv.innerHTML = `
-      <div style="font-weight:bold; margin-bottom: 6px;">Câu ${index + 1}: ${item.q}</div>
-      <div style="font-size:0.9rem;">
-        <div><b>Bạn trả lời:</b> ${userVal || '<i>(Bỏ trống)</i>'}</div>
-        <div><b>Đáp án đúng:</b> ${item.a.join(' / ')}</div>
-        <div style="margin-top:4px; font-weight:800; font-size:0.85rem;">[ ${statusText} ]</div>
+      <div style="font-weight: 800; margin-bottom: 8px; font-size: 1.05rem;">Câu ${index + 1}: ${item.q}</div>
+      <div style="font-size: 0.95rem; line-height: 1.5;">
+        <div><b>Câu trả lời của bạn:</b> ${userVal || '<i>(Bỏ trống)</i>'}</div>
+        <div><b>Đáp án chuẩn:</b> ${item.a.join(' / ')}</div>
+        <div style="margin-top: 6px; font-weight: 900; font-size: 0.9rem;">[ ${statusText} ]</div>
       </div>
     `;
     container.appendChild(itemDiv);
   });
 
   if (!container.innerHTML) {
-    container.innerHTML = `<div style="text-align:center; padding: 20px; color: var(--muted);">Không có câu hỏi nào thuộc nhóm này.</div>`;
+    container.innerHTML = `<div style="text-align:center; padding: 25px; color: var(--muted); font-weight: 600;">Không có câu hỏi nào thuộc nhóm này.</div>`;
   }
 }
 
-// Xuất file kết quả TXT
 function exportResultTxt() {
   let out = `KẾT QUẢ ÔN TẬP LINUX - ĐỀ ${currentExamNumber}\n`;
   out += `Tác giả: @mrfice5\n`;
@@ -808,11 +939,11 @@ function exportResultTxt() {
   a.click();
 }
 
-// ==================== SỰ KIỆN GIAO DIỆN ====================
+// ==================== BIND EVENTS ====================
 $('startExamBtn').onclick = startExam;
 $('submitExamBtn').onclick = submitExam;
 $('cancelExamBtn').onclick = () => {
-  if (confirm('Bạn có chắc muốn thoát bài thi hiện tại? Toàn bộ tiến trình sẽ bị hủy.')) {
+  if (confirm('Bạn có chắc chắn muốn hủy bài thi? Mọi câu trả lời đang làm sẽ bị xóa.')) {
     clearInterval(timerInterval);
     $('examSection').classList.add('hidden');
     $('setupSection').classList.remove('hidden');
@@ -827,14 +958,22 @@ $('retakeBtn').onclick = () => {
 $('exportResultBtn').onclick = exportResultTxt;
 $('printBtn').onclick = () => window.print();
 
-// Bật/tắt chế độ Trắng Đen
+// Chuyển đổi Trắng / Đen
 $('themeToggle').onclick = () => {
   document.body.classList.toggle('monochrome');
   const isMono = document.body.classList.contains('monochrome');
   $('themeToggle').textContent = isMono ? 'Chuyển: Giao diện Chuẩn' : 'Chuyển: Trắng / Đen';
 };
 
-// Tabs Filter
+// Popup Mẹo thi
+$('secretTipBtn').onclick = () => {
+  $('tipModal').classList.remove('hidden');
+};
+$('closeTipBtn').onclick = () => {
+  $('tipModal').classList.add('hidden');
+};
+
+// Lọc review kết quả
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.onclick = () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
