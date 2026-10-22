@@ -387,16 +387,65 @@ footer.app-footer a {
 </head>
 <body>
 
-<!-- BANNER CHỮ CHẠY VÔ TẬN -->
+<!-- CSS cập nhật tốc độ chạy chữ mượt hơn khi có nhiều nội dung -->
+<style>
+.ticker-wrap {
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--ticker-bg, #0f172a);
+  color: var(--ticker-color, #f8fafc);
+  padding: 10px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  user-select: none;
+}
+.ticker-move {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 50s linear infinite; /* Điều chỉnh thành 50s để 10 câu chạy vừa mắt, không bị quá nhanh */
+}
+.ticker-move:hover {
+  animation-play-state: paused;
+}
+.ticker-item {
+  display: inline-block;
+  padding: 0 30px;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+@keyframes marquee {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+</style>
+
+<!-- BANNER CHỮ CHẠY VÔ TẬN (10 CÂU X2 ĐỂ LOOP MƯỢT MÀ) -->
 <div class="ticker-wrap">
   <div class="ticker-move">
+    <!-- BỘ 10 CÂU GỐC -->
     <span class="ticker-item">🔥 HỌC TÀI THI VẬN</span>
     <span class="ticker-item">💡 HÃY CHỌN TOÀN C NẾU BẠN NGOO</span>
     <span class="ticker-item">📖 HỌC LÀ CON ĐƯỜNG DUY NHẤT ĐỂ THÀNH CONG</span>
-    <!-- Duplicate for infinite seamless scroll -->
+    <span class="ticker-item">💸 CÒN TIỀN LÀ CÒN ĐÓNG ĐƯỢC TIỀN HỌC LẠI</span>
+    <span class="ticker-item">🐧 NƯỚC ĐẾN CHÂN MỚI NHẢY? NƯỚC ĐẾN CỔ CÒN CHƯA BƠI!</span>
+    <span class="ticker-item">🎯 TAM TAI KHÔNG BẰNG ĐỀ THI QUẢN TRỊ MẠNG</span>
+    <span class="ticker-item">☕ RỚT MÔN LÀ DO TÂM LINH, KHÔNG PHẢI DO LƯỜI</span>
+    <span class="ticker-item">🚫 ĐỪNG NÓI "EM BIẾT RỒI" KHI MÀN HÌNH BÁO SYNTAX ERROR</span>
+    <span class="ticker-item">🤡 HỌC KHÔNG CHƠI ĐÁNH RƠI TUỔI TRẺ, HỌC MÀ CHƠI RƠI BẰNG TỐT NGHIỆP</span>
+    <span class="ticker-item">⚡ TẮT MÁY ĐI NGỦ ĐI, THI XONG ĐẰNG NÀO CHẲNG QUA... KỲ SAU</span>
+
+    <!-- NHÂN ĐÔI ĐỂ VÒNG LẶP LIÊN TỤC KHÔNG BỊ HẪNG NỬA CHỪNG -->
     <span class="ticker-item">🔥 HỌC TÀI THI VẬN</span>
     <span class="ticker-item">💡 HÃY CHỌN TOÀN C NẾU BẠN NGOO</span>
     <span class="ticker-item">📖 HỌC LÀ CON ĐƯỜNG DUY NHẤT ĐỂ THÀNH CONG</span>
+    <span class="ticker-item">💸 CÒN TIỀN LÀ CÒN ĐÓNG ĐƯỢC TIỀN HỌC LẠI</span>
+    <span class="ticker-item">🐧 NƯỚC ĐẾN CHÂN MỚI NHẢY? NƯỚC ĐẾN CỔ CÒN CHƯA BƠI!</span>
+    <span class="ticker-item">🎯 TAM TAI KHÔNG BẰNG ĐỀ THI QUẢN TRỊ MẠNG</span>
+    <span class="ticker-item">☕ RỚT MÔN LÀ DO TÂM LINH, KHÔNG PHẢI DO LƯỜI</span>
+    <span class="ticker-item">🚫 ĐỪNG NÓI "EM BIẾT RỒI" KHI MÀN HÌNH BÁO SYNTAX ERROR</span>
+    <span class="ticker-item">🤡 HỌC KHÔNG CHƠI ĐÁNH RƠI TUỔI TRẺ, HỌC MÀ CHƠI RƠI BẰNG TỐT NGHIỆP</span>
+    <span class="ticker-item">⚡ TẮT MÁY ĐI NGỦ ĐI, THI XONG ĐẰNG NÀO CHẲNG QUA... KỲ SAU</span>
   </div>
 </div>
 
