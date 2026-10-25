@@ -6,7 +6,7 @@
 <title>Hệ Thống Đang Bảo Trì - Linux Exam Portal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -17,15 +17,14 @@ body {
   font-size: 16px;
   line-height: 1.6;
   min-height: 100vh;
-  overflow: hidden; /* Khóa cuộn trang khi đang bảo trì */
+  overflow: hidden;
 }
 
-/* ==================== PHẦN NỀN TƯỢNG TRƯNG PHÍA DƯỚI ==================== */
+/* ==================== PHẦN NỀN MỜ PHÍA SAU ==================== */
 .background-mockup {
   user-select: none;
-  pointer-events: none; /* Vô hiệu hóa toàn bộ click chuột phía sau */
+  pointer-events: none;
 }
-
 .ticker-wrap {
   width: 100%;
   overflow: hidden;
@@ -42,13 +41,11 @@ body {
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
-
 .app-mock {
   max-width: 1020px;
   margin: 0 auto;
   padding: 20px 16px;
 }
-
 .toolbar-mock {
   display: flex;
   justify-content: space-between;
@@ -78,8 +75,6 @@ body {
   font-weight: 700;
   font-size: 0.9rem;
 }
-
-/* ĐỒNG HỒ TƯỢNG TRƯNG */
 .countdown-mock {
   background: linear-gradient(145deg, #1e1b4b, #0f172a);
   border: 1px solid rgba(99, 102, 241, 0.4);
@@ -106,8 +101,6 @@ body {
   font-weight: 800;
   color: #a5b4fc;
 }
-
-/* THẺ BÀI THI TƯỢNG TRƯNG */
 .card-mock {
   background: #182234;
   border: 1px solid #334155;
@@ -122,40 +115,54 @@ body {
   margin-bottom: 10px;
 }
 
-/* ==================== LỚP PHỦ LÀM MỜ VÀ POPUP BẢO TRÌ ==================== */
+/* ==================== LỚP PHỦ OVERLAY & CONTAINER CHIA ĐÔI ==================== */
 .maintenance-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(11, 15, 25, 0.7); /* Nền tối hòa sắc độ giao diện */
-  backdrop-filter: blur(10px); /* Hiệu ứng làm mờ nét toàn bộ phía sau */
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(11, 15, 25, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 18px;
+  padding: 20px;
   z-index: 999999;
+  overflow-y: auto;
 }
 
-.maintenance-modal {
-  background: #1e293b;
-  border: 1.5px solid #475569;
-  border-radius: 20px;
-  padding: 38px 28px;
-  max-width: 460px;
+.maintenance-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  max-width: 1100px;
   width: 100%;
-  text-align: center;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 30px rgba(99, 102, 241, 0.2);
+  max-height: 88vh;
+  align-items: stretch;
   animation: modalEnter 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @keyframes modalEnter {
-  from { transform: scale(0.9); opacity: 0; }
+  from { transform: scale(0.92); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
 
+/* KHỐI 1: POPUP BẢO TRÌ BÊN TRÁI */
+.maintenance-modal {
+  background: #1e293b;
+  border: 1.5px solid #475569;
+  border-radius: 20px;
+  padding: 36px 26px;
+  flex: 0 0 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 30px rgba(99, 102, 241, 0.2);
+}
+
 .m-icon {
-  width: 68px;
-  height: 68px;
+  width: 64px;
+  height: 64px;
   background: rgba(245, 158, 11, 0.15);
   border: 1.5px solid rgba(245, 158, 11, 0.4);
   border-radius: 50%;
@@ -163,7 +170,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 2rem;
-  margin-bottom: 18px;
+  margin: 0 auto 14px;
 }
 
 .m-badge {
@@ -178,33 +185,33 @@ body {
   letter-spacing: 0.5px;
   padding: 4px 12px;
   border-radius: 999px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .m-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.65rem;
+  font-size: 1.55rem;
   font-weight: 800;
   color: #f8fafc;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .m-desc {
   color: #94a3b8;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 24px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin-bottom: 18px;
 }
 
 .m-time-box {
   background: #0f172a;
   border: 1px solid #334155;
   border-radius: 12px;
-  padding: 12px 14px;
+  padding: 10px 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 18px;
   font-size: 0.88rem;
 }
 .m-time-val {
@@ -215,29 +222,147 @@ body {
 
 .btn-reload {
   width: 100%;
-  padding: 13px;
+  padding: 12px;
   background: #6366f1;
   color: #ffffff;
   border: none;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.2s;
   box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
 }
-.btn-reload:hover {
-  background: #4f46e5;
-  transform: translateY(-1px);
+.btn-reload:hover { background: #4f46e5; transform: translateY(-1px); }
+
+/* KHỐI 2: KHUNG TÀI LIỆU ÔN ĐỠ BÊN PHẢI */
+.study-hub {
+  background: #182234;
+  border: 1.5px solid #334155;
+  border-radius: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
 }
-.btn-reload:active {
-  transform: translateY(0);
+
+.study-header {
+  padding: 18px 22px;
+  background: #0f172a;
+  border-bottom: 1px solid #334155;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.study-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.search-input {
+  background: #1e293b;
+  border: 1px solid #475569;
+  color: #f8fafc;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  outline: none;
+  width: 220px;
+  font-family: inherit;
+}
+.search-input:focus {
+  border-color: #6366f1;
+}
+
+.study-list {
+  padding: 16px 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+.study-list::-webkit-scrollbar {
+  width: 6px;
+}
+.study-list::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+.study-sec-title {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #a5b4fc;
+  background: rgba(99, 102, 241, 0.15);
+  padding: 6px 12px;
+  border-radius: 6px;
+  margin: 14px 0 10px;
+  text-transform: uppercase;
+}
+.study-sec-title:first-child { margin-top: 0; }
+
+.qa-item {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  transition: all 0.15s ease;
+}
+.qa-item:hover {
+  border-color: #6366f1;
+}
+.qa-q {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin-bottom: 6px;
+}
+.qa-a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88rem;
+  color: #4ade80;
+  background: #0f172a;
+  padding: 6px 10px;
+  border-radius: 6px;
+  word-break: break-all;
+  display: inline-block;
+  border-left: 3px solid #22c55e;
+}
+
+/* RESPONSIVE MOBILE */
+@media (max-width: 860px) {
+  body { overflow: auto; }
+  .maintenance-overlay {
+    align-items: flex-start;
+    padding: 14px;
+  }
+  .maintenance-wrapper {
+    flex-direction: column;
+    max-height: none;
+  }
+  .maintenance-modal {
+    flex: none;
+    padding: 26px 20px;
+  }
+  .study-hub {
+    min-height: 520px;
+  }
+  .search-input {
+    width: 100%;
+  }
 }
 </style>
 </head>
 <body>
 
-  <!-- ==================== KHUNG NỀN TƯỢNG TRƯNG PHÍA DƯỚI ==================== -->
+  <!-- ==================== NỀN MỜ PHÍA SAU ==================== -->
   <div class="background-mockup" aria-hidden="true">
     <div class="ticker-wrap">
       <span class="ticker-item">🔥 HỌC TÀI THI VẬN</span>
@@ -276,27 +401,201 @@ body {
     </div>
   </div>
 
-  <!-- ==================== POPUP BẢO TRÌ NỔI TRÊN NỀN MỜ ==================== -->
+  <!-- ==================== LỚP PHỦ POPUP BẢO TRÌ & KHUNG ÔN ĐỠ KẾ BÊN ==================== -->
   <div class="maintenance-overlay">
-    <div class="maintenance-modal">
-      <div class="m-icon">🛠️</div>
-      <br>
-      <div class="m-badge">● HỆ THỐNG TẠM NGƯNG HOẠT ĐỘNG</div>
-      <h2 class="m-title">ĐANG BẢO TRÌ MÁY CHỦ</h2>
-      <p class="m-desc">
-        Hệ thống thi thử Linux Exam Lab đang được nâng cấp máy chủ và đồng bộ lại ngân hàng đề thi. Vui lòng quay lại sau ít giờ.
-      </p>
+    <div class="maintenance-wrapper">
+      
+      <!-- CỘT 1: POPUP THÔNG BÁO BẢO TRÌ -->
+      <div class="maintenance-modal">
+        <div>
+          <div class="m-icon">🛠️</div>
+          <div class="m-badge">● HỆ THỐNG TẠM NGƯNG HOẠT ĐỘNG</div>
+          <h2 class="m-title">ĐANG BẢO TRÌ MÁY CHỦ</h2>
+          <p class="m-desc">
+            Hệ thống đang được nâng cấp cơ sở dữ liệu và đồng bộ hóa lại ngân hàng đề thi. Bạn hãy tranh thủ ôn tập ngay tại bảng đề cương kế bên!
+          </p>
+        </div>
 
-      <div class="m-time-box">
-        <span style="color: #94a3b8;">Thời gian dự kiến:</span>
-        <span class="m-time-val">Vài tiếng tới</span>
+        <div>
+          <div class="m-time-box">
+            <span style="color: #94a3b8;">Thời gian dự kiến:</span>
+            <span class="m-time-val">Vài tiếng tới</span>
+          </div>
+
+          <button class="btn-reload" onclick="location.reload()">
+            Kiểm tra & Tải lại trang
+          </button>
+        </div>
       </div>
 
-      <button class="btn-reload" onclick="location.reload()">
-        Kiểm tra & Tải lại trang
-      </button>
+      <!-- CỘT 2: KHUNG ĐỀ CƯƠNG ÔN TẬP ĐẦY ĐỦ 90 CÂU -->
+      <div class="study-hub">
+        <div class="study-header">
+          <div class="study-title">
+            <span>📚 Đề Cương Ôn Tập (90 Câu)</span>
+          </div>
+          <input type="text" id="filterInput" class="search-input" placeholder="🔍 Tìm kiếm câu hỏi / lệnh...">
+        </div>
+
+        <div class="study-list" id="studyList">
+          <!-- Danh sách câu hỏi sẽ được sinh bằng JavaScript -->
+        </div>
+      </div>
+
     </div>
   </div>
 
+<script>
+// Toàn bộ 60 câu lý thuyết + 30 câu lệnh trích xuất từ đề cương
+const BANK_THEORY = [
+  { q: "Tập tin cấu hình mạng tĩnh động mặc định trên Debian là gì?", a: "/etc/network/interfaces" },
+  { q: "Đổi cổng SSH từ 22 sang 2222: sửa từ khóa nào trong /etc/ssh/sshd_config?", a: "Port" },
+  { q: "Lệnh bật giao diện mạng eth0?", a: "ifup eth0" },
+  { q: "Lệnh tắt giao diện mạng eth0?", a: "ifdown eth0" },
+  { q: "Tập tin chứa danh sách DNS Server dùng phân giải tên miền?", a: "/etc/resolv.conf" },
+  { q: "Chỉ cho phép user1, user2 đăng nhập SSH: thêm thuộc tính nào?", a: "AllowUsers user1 user2" },
+  { q: "Tập tin cấu hình chính của SSH Server trên Debian?", a: "/etc/ssh/sshd_config" },
+  { q: "Tham số cho phép chặn đăng nhập trực tiếp bằng root qua SSH?", a: "PermitRootLogin" },
+  { q: "Cổng mặc định của SSH?", a: "22" },
+  { q: "Từ khóa khai báo địa chỉ MAC khi cấu hình DHCP Static Lease?", a: "hardware ethernet" },
+  { q: "Tập tin cấu hình chính của ISC DHCP Server?", a: "/etc/dhcp/dhcpd.conf" },
+  { q: "Từ khóa khai báo dải IP cấp phát tự động trong DHCP?", a: "range" },
+  { q: "Từ khóa cấu hình Default Gateway cho DHCP client?", a: "option routers" },
+  { q: "Bản ghi DNS định tuyến email đến Mail Server?", a: "MX" },
+  { q: "Tập tin BIND9 khai báo các zone?", a: "/etc/bind/named.conf.local" },
+  { q: "Bản ghi ánh xạ tên miền sang IPv4?", a: "A" },
+  { q: "Bản ghi DNS ngược ánh xạ IP sang tên miền?", a: "PTR" },
+  { q: "Lệnh kiểm tra cú pháp cấu hình BIND9?", a: "named-checkconf" },
+  { q: "Công cụ kiểm tra phân giải DNS chi tiết thay nslookup?", a: "dig" },
+  { q: "Từ khóa Master DNS cho phép Slave đồng bộ zone?", a: "allow-transfer" },
+  { q: "Giá trị type của zone trên Slave DNS?", a: "slave" },
+  { q: "Tham số khai báo địa chỉ IP Master DNS trong zone Slave?", a: "masters" },
+  { q: "Giá trị SOA phải tăng sau mỗi lần sửa zone?", a: "Serial" },
+  { q: "Tập tin khai báo thư mục và quyền chia sẻ NFS Server?", a: "/etc/exports" },
+  { q: "Tùy chọn chia sẻ /data chỉ đọc?", a: "ro" },
+  { q: "Lệnh áp dụng thay đổi exports ngay, không restart dịch vụ?", a: "exportfs -ra" },
+  { q: "Gói NFS Server trên Debian?", a: "nfs-kernel-server" },
+  { q: "Tập tin khai báo tự động mount NFS khi khởi động?", a: "/etc/fstab" },
+  { q: "Bản ghi DNS tạo tên bí danh trỏ đến tên miền khác?", a: "CNAME" },
+  { q: "Từ khóa thời gian lease mặc định DHCP (giây)?", a: "default-lease-time" },
+  { q: "Gói NFS Client trên Debian?", a: "nfs-common" },
+  { q: "Tùy chọn NFS ghi dữ liệu xuống đĩa trước khi phản hồi?", a: "sync" },
+  { q: "Tùy chọn NFS gom yêu cầu ghi để tăng hiệu năng?", a: "async" },
+  { q: "Tường lửa đơn giản trên Debian/Ubuntu để mở/đóng cổng?", a: "UFW" },
+  { q: "Công cụ tự động chặn IP dò mật khẩu SSH liên tục?", a: "Fail2ban" },
+  { q: "Tập tin cấu hình chính của Samba?", a: "/etc/samba/smb.conf" },
+  { q: "Tham số Samba cho phép người dùng ghi sửa tập tin?", a: "writable = yes (hoặc read only = no)" },
+  { q: "Tham số vsftpd nhốt người dùng cục bộ trong home directory?", a: "chroot_local_user=YES" },
+  { q: "Tham số vsftpd cho phép người dùng cục bộ tải tập tin lên máy chủ?", a: "write_enable=YES" },
+  { q: "Tập tin cấu hình chính của vsftpd?", a: "/etc/vsftpd.conf" },
+  { q: "Tham số giới hạn download của người dùng FTP cục bộ?", a: "local_max_rate" },
+  { q: "Tham số chặn đăng nhập anonymous trong vsftpd?", a: "anonymous_enable=NO" },
+  { q: "Tham số Samba giới hạn máy địa chỉ mạng được truy cập share?", a: "hosts allow" },
+  { q: "Tham số vsftpd chỉ định tập tin danh sách user bị cấm/được phép?", a: "userlist_file" },
+  { q: "Tập tin cấu hình chính của Apache trên Debian?", a: "/etc/apache2/apache2.conf" },
+  { q: "Thư mục mã nguồn web mặc định của Apache?", a: "/var/www/html" },
+  { q: "Cổng mặc định HTTP?", a: "80" },
+  { q: "Thư mục chứa Virtual Host đã kích hoạt?", a: "/etc/apache2/sites-enabled/" },
+  { q: "Chỉ thị khai báo tên miền website trong Virtual Host?", a: "ServerName" },
+  { q: "Chỉ thị khai báo thư mục mã nguồn website?", a: "DocumentRoot" },
+  { q: "Chỉ thị mod_alias chuyển hướng truy cập?", a: "Redirect" },
+  { q: "Mã HTTP chuyển hướng vĩnh viễn?", a: "301" },
+  { q: "Cổng mặc định HTTPS?", a: "443" },
+  { q: "Chỉ thị khai báo đường dẫn file chứng chỉ SSL?", a: "SSLCertificateFile" },
+  { q: "Công cụ tự động cấp/gia hạn chứng chỉ Let's Encrypt?", a: "Certbot" },
+  { q: "Tập tin cấu hình chính của Postfix?", a: "/etc/postfix/main.cf" },
+  { q: "Cổng SMTP mặc định truyền thư giữa các MTA?", a: "25" },
+  { q: "Cổng IMAP không mã hóa?", a: "143" },
+  { q: "Tên file cấu hình Dovecot trong /etc/dovecot/?", a: "dovecot.conf" },
+  { q: "Tập tin log thư Postfix/Dovecot thường dùng trên Debian?", a: "/var/log/mail.log" }
+];
+
+const BANK_COMMANDS = [
+  { q: "Liệt kê chi tiết file/thư mục trong /qtmlinux, gồm file ẩn", a: "ls -la /qtmlinux" },
+  { q: "Tìm file có dung lượng lớn hơn 50M và nhỏ hơn 100M", a: "find / -type f -size +50M -size -100M 2>/dev/null" },
+  { q: "Giải nén dulieu.tar.gz bằng tar", a: "tar -xzvf dulieu.tar.gz" },
+  { q: "Dùng dpkg kiểm tra gói NFS đã cài chưa", a: "dpkg -l | grep nfs" },
+  { q: "Khởi động lại DHCP Server trên Debian", a: "systemctl restart isc-dhcp-server" },
+  { q: "Mount /data từ NFS Server 192.168.1.2 vào /mnt/nfs", a: "mount -t nfs 192.168.1.2:/data /mnt/nfs" },
+  { q: "Unmount NFS tại /mnt/nfs", a: "umount /mnt/nfs" },
+  { q: "Đặt tạm IP 192.168.1.50/24 cho eth0", a: "ip addr add 192.168.1.50/24 dev eth0" },
+  { q: "Đặt Default Gateway tạm thời 192.168.1.1", a: "ip route add default via 192.168.1.1" },
+  { q: "Cho phép DNS qua UFW", a: "ufw allow 53" },
+  { q: "Kiểm tra trạng thái DHCP Server", a: "systemctl status isc-dhcp-server" },
+  { q: "Liệt kê thư mục NFS chia sẻ từ 192.168.1.10", a: "showmount -e 192.168.1.10" },
+  { q: "SSH tới 192.168.1.100 bằng user nghialv", a: "ssh nghialv@192.168.1.100" },
+  { q: "Cho phép SSH qua UFW", a: "ufw allow OpenSSH" },
+  { q: "Hiển thị giao diện mạng và địa chỉ IP hiện tại", a: "ip addr show" },
+  { q: "Thêm mật khẩu Samba cho user nghialv đã có trên hệ thống", a: "smbpasswd -a nghialv" },
+  { q: "Cài Apache Web Server trên Debian", a: "apt install apache2 -y" },
+  { q: "Kiểm tra cú pháp cấu hình Apache", a: "apache2ctl configtest" },
+  { q: "Kích hoạt Virtual Host site1.com.conf", a: "a2ensite site1.com.conf" },
+  { q: "Kích hoạt Virtual Host HTTPS mặc định", a: "a2ensite default-ssl.conf" },
+  { q: "Tạo RSA private key 4096 bit tên caothang.key", a: "openssl genrsa -out caothang.key 4096" },
+  { q: "Gửi email tiêu đề 'hello', nội dung 'linux' tới nghialv@caothang.edu.vn", a: "echo \"linux\" | mail -s \"hello\" nghialv@caothang.edu.vn" },
+  { q: "Gửi email tiêu đề 'linux', nội dung 'hello', CC admin@caothang.edu.vn", a: "echo \"hello\" | mail -s \"linux\" -c admin@caothang.edu.vn nghialv@caothang.edu.vn" },
+  { q: "Xem hàng đợi thư Postfix", a: "mailq" },
+  { q: "Cho IP 192.168.1.50 truy cập tất cả cổng qua UFW", a: "ufw allow from 192.168.1.50" },
+  { q: "Chỉ cho IP 10.0.0.5 truy cập TCP port 3306", a: "ufw allow from 10.0.0.5 to any port 3306 proto tcp" },
+  { q: "Liệt kê application profiles UFW", a: "ufw app list" },
+  { q: "Đổi chủ sở hữu đệ quy /srv/ftp/upload thành vsftpd:ftpclient", a: "chown -R vsftpd:ftpclient /srv/ftp/upload" },
+  { q: "Đổi chủ sở hữu và nhóm /etc/vsftpd.conf thành root:root", a: "chown root:root /etc/vsftpd.conf" },
+  { q: "Chỉ root được đọc/ghi /etc/vsftpd.conf", a: "chmod 600 /etc/vsftpd.conf" }
+];
+
+function renderStudyList(filter = "") {
+  const container = document.getElementById("studyList");
+  container.innerHTML = "";
+  const f = filter.toLowerCase().trim();
+
+  // 1. Render Lý thuyết
+  const filteredTheory = BANK_THEORY.filter(item => item.q.toLowerCase().includes(f) || item.a.toLowerCase().includes(f));
+  if (filteredTheory.length > 0) {
+    const sec1 = document.createElement("div");
+    sec1.className = "study-sec-title";
+    sec1.textContent = "PHẦN I: 60 CÂU TRẢ LỜI NGẮN (LÝ THUYẾT)";
+    container.appendChild(sec1);
+
+    filteredTheory.forEach((item, idx) => {
+      const card = document.createElement("div");
+      card.className = "qa-item";
+      card.innerHTML = `
+        <div class="qa-q">${idx + 1}. ${item.q}</div>
+        <div class="qa-a">${item.a}</div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  // 2. Render Viết lệnh
+  const filteredCmds = BANK_COMMANDS.filter(item => item.q.toLowerCase().includes(f) || item.a.toLowerCase().includes(f));
+  if (filteredCmds.length > 0) {
+    const sec2 = document.createElement("div");
+    sec2.className = "study-sec-title";
+    sec2.textContent = "PHẦN II: 30 CÂU VIẾT LỆNH QUẢN TRỊ";
+    container.appendChild(sec2);
+
+    filteredCmds.forEach((item, idx) => {
+      const card = document.createElement("div");
+      card.className = "qa-item";
+      card.innerHTML = `
+        <div class="qa-q">${idx + 1}. ${item.q}</div>
+        <div class="qa-a">${item.a}</div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  if (filteredTheory.length === 0 && filteredCmds.length === 0) {
+    container.innerHTML = `<div style="text-align:center; padding:30px; color:#94a3b8;">Không tìm thấy câu hỏi hoặc câu lệnh nào khớp với từ khóa.</div>`;
+  }
+}
+
+// Khởi chạy hiển thị ban đầu & lắng nghe sự kiện tìm kiếm
+renderStudyList();
+document.getElementById("filterInput").addEventListener("input", e => {
+  renderStudyList(e.target.value);
+});
+</script>
 </body>
 </html>
